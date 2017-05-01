@@ -1,0 +1,249 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q {
+	quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* Main */
+
+html {
+	min-height: 100%;
+	font-size: 62.5%;
+	font-family: 'Roboto', sans-serif;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#15a9d5+0,4aced6+60,69e4d7+100 */
+	background: #15a9d5;
+	/* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMTAwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTVhOWQ1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNjAlIiBzdG9wLWNvbG9yPSIjNGFjZWQ2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzY5ZTRkNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+	background: -moz-linear-gradient(38deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(38deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(38deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#15a9d5', endColorstr='#69e4d7', GradientType=1);
+	/* IE6-8 fallback on horizontal gradient */
+	text-rendering: optimizeLegibility;
+}
+
+@media screen and (min-aspect-ratio: 9/16) {
+	/* Default */
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+	html {
+		background: -moz-linear-gradient(45deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+		/* FF3.6-15 */
+		background: -webkit-linear-gradient(45deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+		/* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(45deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+	}
+}
+
+@media screen and (min-aspect-ratio: 16/9) {
+	html {
+		background: -moz-linear-gradient(51deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+		/* FF3.6-15 */
+		background: -webkit-linear-gradient(51deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+		/* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(51deg, #14a8d5 0%, #4aced6 60%, #69e4d7 100%);
+	}
+}
+
+
+/* Small Devices, Tablets */
+
+@media only screen and (max-width: 768px) {
+	html {
+		font-size: 56.25%;
+	}
+}
+
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width: 480px) {
+	html {
+		font-size: 43.25%;
+	}
+}
+@media only screen and (max-height: 480px) {
+	html {
+		font-size: 43.25%;
+	}
+}
+
+body {
+	min-height: 100%;
+	background: url(../images/bg.png) 85% 5% no-repeat;
+	background-size: contain;
+}
+
+article {
+	width: 90%;
+	max-width: 1004px;
+	margin: 10px auto;
+}
+
+article header a.logo {
+	display: block;
+	text-indent: -999px;
+	background: url(../images/logo.png) center center no-repeat;
+	background-size: contain;
+	width: 13.6rem;
+	height: 10.9rem;
+}
+
+article section {
+	padding: calc(50vh - 16rem) 0;
+}
+
+article section p {
+	color: #FFF;
+}
+
+article section p.title {
+	margin: 1.25rem;
+	font-size: 6rem;
+	font-weight: bolder;
+}
+
+article section p.subtitle {
+	margin: 1.75rem;
+	font-size: 1.7rem;
+	font-weight: lighter;
+}
+
+article footer a{
+	margin: 1.75rem;
+	font-size: 2rem;
+	color: #FFF;
+	text-decoration: none;
+}
