@@ -1,0 +1,776 @@
+// ---------------------------------------------------------------------------------------------------------------------
+//  Useful Mixins
+// ---------------------------------------------------------------------------------------------------------------------
+//
+// Requirements:
+//   Sass 3.2.0+
+//
+// Mixins:
+//   @ min-screen(width)                      // shortcut for @media screen and (min-width ...)
+//   @ max-screen(width)                      // shortcut for @media screen and (max-width ...)
+//   @ screen(min-width, max-width)           // shortcut for @media screen and (min-width ...) and (max-width ...)
+//   ---
+//   @ min-screen-height(height)              // shortcut for @media screen and (min-height ...)
+//   @ max-screen-height(height)              // shortcut for @media screen and (max-height ...)
+//   @ screen-height(min-height, max-height)  // shortcut for @media screen and (min-height ...) and (max-height ...)
+//   ---
+//   @ iphone3                                // only iPhone (2, 3G, 3GS) landscape & portrait
+//   @ iphone3(landscape)                     // only iPhone (2, 3G, 3GS) only landscape
+//   @ iphone3(portrait)                      // only iPhone (2, 3G, 3GS) only portrait
+//   ---
+//   @ iphone4                                // only iPhone (4, 4S) landscape & portrait
+//   @ iphone4(landscape)                     // only iPhone (4, 4S) only landscape
+//   @ iphone4(portrait)                      // only iPhone (4, 4S) only portrait
+//   ---
+//   @ iphone5                                // only iPhone (5) landscape & portrait
+//   @ iphone5(landscape)                     // only iPhone (5) only landscape
+//   @ iphone5(portrait)                      // only iPhone (5) only portrait
+//   ---
+//   @ ipad                                   // all iPads (1, 2, 3, 4, Mini) landscape & portrait
+//   @ ipad(landscape)                        // all iPads (1, 2, 3, 4, Mini) only landscape
+//   @ ipad(portrait)                         // all iPads (1, 2, 3, 4, Mini) only portrait
+//   ---
+//   @ ipad-retina                            // only iPad (3, 4) landscape & portrait
+//   @ ipad-retina(landscape)                 // only iPad (3, 4) only landscape
+//   @ ipad-retina(portrait)                  // only iPad (3, 4) only portrait
+//   ---
+//   @ hdpi(ratio)                            // devices with hidpi displays (default ratio: 1.3)
+//   ---
+//   @ retina(file, type, width, height)      //
+//   ---
+//   @ border-radius(radius)
+//   ---
+//   @ box-shadow(top, left, blur, color, inset: false)
+//   ---
+//   @ shadow
+//   ---
+//   @ calc(tag, param)
+//   ---
+//   @ rem(property,values...)
+//   ---
+//
+// ---------------------------------------------------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- Global Constants ------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+$gray-0: #090909;
+$gray-1: #0f1112;
+$gray-2: #141719;
+$gray-3: #222427;
+$gray-4: #7d8081;
+$gray-5: #d6d6d8;
+$gray-6: #f2f2f2;
+$gray-7: white;
+$index: #d80008;
+$headerHeight: 40px;
+$sidebarWidth: 292px;
+$em-base: 14px;
+$linkedin: #007bb6;
+$facebook: #3b5998;
+$twitter: #00aced;
+$gplus: #dd4b39;
+$bufferapp: #333333;
+$pinterest: #cb2027;
+$asset-base-path: '/assets/images/' !default;
+
+@function image-url($file) {
+  @return url($asset-base-path + $file);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- screen ----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin screen($resMin, $resMax) {
+    @media screen and (min-width: $resMin) and (max-width: $resMax) {
+        @content;
+    }
+}
+
+@mixin max-screen($res) {
+    @media screen and (max-width: $res) {
+        @content;
+    }
+}
+
+@mixin min-screen($res) {
+    @media screen and (min-width: $res) {
+        @content;
+    }
+}
+
+@mixin screen-height($resMin, $resMax) {
+    @media screen and (min-height: $resMin) and (max-height: $resMax) {
+        @content;
+    }
+}
+
+@mixin max-screen-height($res) {
+    @media screen and (max-height: $res) {
+        @content;
+    }
+}
+
+@mixin min-screen-height($res) {
+    @media screen and (min-height: $res) {
+        @content;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- hdpi ------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Based on bourbon hidpi-media-queries file (https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_hidpi-media-query.scss)
+// HiDPI mixin. Default value set to 1.3 to target Google Nexus 7 (http://bjango.com/articles/min-device-pixel-ratio/)
+
+@mixin hdpi($ratio: 1.3) {
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio), only screen and (min--moz-device-pixel-ratio: $ratio), only screen and (-o-min-device-pixel-ratio: #{$ratio}/1), only screen and (min-resolution: #{round($ratio * 96)}dpi), only screen and (min-resolution: #{$ratio}dppx) {
+        @content;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- iphone ----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin iphone3($orientation: all) {
+    $deviceMinWidth: 320px;
+    $deviceMaxWidth: 480px;
+    $devicePixelRatio: 1;
+    @if $orientation == all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (orientation: #{$orientation}) {
+            @content;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- iphone-retina ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin iphone4($orientation: all) {
+    $deviceMinWidth: 320px;
+    $deviceMaxWidth: 480px;
+    $devicePixelRatio: 2;
+    $deviceAspectRatio: "2/3";
+    @if $orientation == all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: $deviceAspectRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: 2 / 3) and (orientation: #{$orientation}) {
+            @content;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- iphone-5 --------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin iphone5($orientation: all) {
+    $deviceMinWidth: 320px;
+    $deviceMaxWidth: 568px;
+    $devicePixelRatio: 2;
+    $deviceAspectRatio: "40/71";
+    @if $orientation == all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: $deviceAspectRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: $deviceAspectRatio) and (orientation: #{$orientation}) {
+            @content;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- ipads (all) -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin ipad($orientation: all) {
+    $deviceMinWidth: 768px;
+    $deviceMaxWidth: 1024px;
+    @if $orientation == all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (orientation: #{$orientation}) {
+            @content;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- ipad-retina -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin ipad-retina($orientation: all) {
+    $deviceMinWidth: 768px;
+    $deviceMaxWidth: 1024px;
+    $devicePixelRatio: 2;
+    @if $orientation == all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (orientation: #{$orientation}) {
+            @content;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- retina-images ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin retina($file, $type, $width, $height: "") {
+    background-image: image-url($file + "." + $type);
+    -webkit-background-size: $width #{$height};
+    background-size: $width #{$height};
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- border-radius ---------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box;
+    /* stops bg color from leaking outside the border: */
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- box-shadow ------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+        -webkit-box-shadow: inset $left $top $blur $color;
+        -moz-box-shadow: inset $left $top $blur $color;
+        box-shadow: inset $left $top $blur $color;
+    }
+    @else {
+        -webkit-box-shadow: $left $top $blur $color;
+        -moz-box-shadow: $left $top $blur $color;
+        box-shadow: $left $top $blur $color;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- shadow ----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin shadow {
+    border: thin solid rgba(0, 0, 0, 0.1);
+    //@include box-shadow(0, 0, 1px, rgba(0, 0, 0, 0.2));
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- calc ------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+//@mixin calc($property, $expression) {
+//  #{$property}: -moz-calc(#{$expression});
+//  #{$property}: -webkit-calc(#{$expression});
+//  #{$property}: calc(#{$expression});
+//}
+@mixin calc($property, $expression) {
+    #{$property}: -moz-calc(#{$expression});
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- rem -------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin rem($property, $values...) {
+    $max: length($values);
+    $pxValues: "";
+    $remValues: "";
+    @for $i from 1 through $max {
+        $value: nth($values, $i);
+        $pxValues: #{$pxValues + $value};
+        @if $i < $max {
+            $pxValues: #{$pxValues + " "};
+        }
+    }
+    @for $i from 1 through $max {
+        $value: nth($values, $i);
+        $remValues: #{$remValues + $value / $em-base}rem;
+        @if $i < $max {
+            $remValues: #{$remValues + " "};
+        }
+    }
+    #{$property}: $pxValues;
+    #{$property}: $remValues;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- small -----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin small {
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- feed_item -------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin feed_item {
+    padding: 0 12px;
+    > div {
+        position: relative;
+        -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);//, 0 0 20px rgba(0, 0, 0, 0.1) inset;
+        -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);//, 0 0 20px rgba(0, 0, 0, 0.1) inset;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);//, 0 0 20px rgba(0, 0, 0, 0.1) inset;
+        padding: 0;
+        width: 288px;
+        float: left;
+        margin: 12px 0;
+        background: $gray-7;/*
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            top: 0;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            -moz-border-radius: 100px / 10px;
+            -webkit-border-radius: 100px / 10px;
+            border-radius: 100px / 10px;
+            transform: skew(1deg, 0deg);
+            -webkit-transform: skew(1deg, 0deg);
+            -moz-transform: skew(1deg, 0deg);
+            -o-transform: skew(1deg, 0deg);
+            -ms-transform: skew(1deg, 0deg);
+        }
+        &:after {
+            right: 10px;
+            left: auto;
+            -webkit-transform: skew(4deg) rotate(1deg);
+            -moz-transform: skew(4deg) rotate(1deg);
+            -ms-transform: skew(4deg) rotate(1deg);
+            -o-transform: skew(4deg) rotate(1deg);
+            transform: skew(4deg) rotate(1deg);
+        }
+        &:hover {
+            position: relative;
+            -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+            -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+            &:before, &:after {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+                -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+                top: 10px;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+                -moz-border-radius: 100px / 10px;
+                -webkit-border-radius: 100px / 10px;
+                border-radius: 100px / 10px;
+                transform: skew(0deg, -3deg);
+                -webkit-transform: skew(0deg, -3deg);
+                -moz-transform: skew(0deg, -3deg);
+                -o-transform: skew(0deg, -3deg);
+                -ms-transform: skew(0deg, -3deg);
+            }
+            &:after {
+                right: 10px;
+                left: auto;
+                -webkit-transform: skew(4deg) rotate(1deg);
+                -moz-transform: skew(4deg) rotate(1deg);
+                -ms-transform: skew(4deg) rotate(1deg);
+                -o-transform: skew(4deg) rotate(1deg);
+                transform: skew(4deg) rotate(1deg);
+            }
+        }*/
+        .details {
+            padding: 4px 10px 2px 10px;
+        }
+        .img {
+            background: #FFFFFF;
+            max-height: 480px;
+            overflow: hidden;
+            text-align: center;
+            > a {
+                position: relative;
+                display: block;
+                line-height: 0;
+                max-height: 480px;
+                min-height: 37px;
+                p{margin:0}
+                > img {
+                    width: 288px;
+                    opacity: 0;
+                }
+                > div {
+                    height: 37px;
+                }
+                &.shadow {}
+            }
+            > .edit {
+                position: absolute;
+                left: 10px;
+                left: rem(10px);
+                top: 0px;
+                width: 38px;
+                height: 37px;
+                z-index: 2;
+                opacity: 0.9;
+                a {
+                    width: 38px;
+                    height: 37px;
+                    float: left;
+                    overflow: hidden;
+                    color: $gray-6;
+                    font-size: 27px;
+                    line-height: 36px;
+                    background-color: rgba(0, 0, 0, 0.75);
+                    &.edit {
+                        background-position: top left;
+                    }
+                }
+            }
+            > .leaf {
+                position: absolute;
+                right: 10px;
+                right: rem(10px);
+                top: 0px;
+                width: 38px;
+                height: 37px;
+                z-index: 2;
+                opacity: 0.9;
+                a {
+                    width: 38px;
+                    height: 37px;
+                    float: right;
+                    overflow: hidden;
+                    color: $gray-6;
+                    font-size: 27px;
+                    line-height: 36px;
+                    background-color: rgba(0, 0, 0, 0.75);
+                    &.leaf {
+                        background-position: top left;
+                    }
+                    &.unleaf {
+                        color: $index;
+                    }
+                    &.loading {
+                        background: image-url("/jqx/loading_default.gif");
+                        background-size: contain;
+                        background-size: 32px 32px;
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        opacity: 0.6;
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+        .legend {
+            // @include small;
+            font-size: 11px;
+            margin: 4px 0;
+            text-transform: uppercase;
+            color: $gray-4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .title {
+            font-size: 18px;
+            margin: 8px 0;
+            cursor: pointer;
+            clear: both;
+            a {
+                color: $gray-3;
+                font-weight: 300;
+                &:hover {
+                    color: $index;
+                }
+                &:active {
+                    background: none;
+                    /* Fix for IE */
+                }
+            }
+        }
+        .desc {
+            // @include small;
+            font-size: 12px;
+            color: lighten($gray-3, 30%);
+            margin: 8px 0 0 0;
+            line-height: 1.2em;
+            word-wrap: break-word;
+            padding-bottom: 4px;
+            overflow: hidden;
+            span {
+                font-size: 0.8em;
+            }
+        }
+        ul {
+            position: relative;
+            li {
+                display: inline-block;
+                margin: 2px 0px 4px 0px;
+                font-size: 10px;
+                &:after {
+                    content: "";
+                    border-color: darken($gray-5, 10%);
+                    border-style: solid;
+                    border-width: 2px;
+                    display: inline-block;
+                    height: 0;
+                    width: 0;
+                    margin: 1px 6px;
+                    border-radius: 2px;
+                }
+                &:first-child{
+                    cursor: pointer;
+                }
+                &:last-child {
+                    &:after {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+    &:hover {
+        .img > a.shadow::before {
+            display: block;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -moz-box-shadow: inset 0px 0px 200px 50px rgba(0, 0, 0, 0.25);
+            -webkit-box-shadow: inset 0px 0px 200px 50px rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0px 0px 200px 50px rgba(0, 0, 0, 0.25);
+        }
+        .img .leafiframe {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .button {
+            color: #4fb535;
+        }
+    }
+    &.member {
+        &:hover .img > a::before {
+            display: none;
+        }
+        > div {
+            width: 211px;
+            .img {
+                > a {
+                    > img {
+                        width: 211px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- tristate --------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin tristate($ratio: 1) {
+    [type="checkbox"] {
+        &:not(:checked), &:checked {
+            position: absolute;
+            left: -9999px;
+        }
+        &:not(:checked) + label, &:checked + label {
+            position: relative;
+            padding: 12px * $ratio;
+            padding: rem(12px * $ratio);
+            display: inline-block;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        &:not(:checked) + label:before, &:checked + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px * $ratio;
+            width: 17px * $ratio;
+            width: rem(17px * $ratio);
+            height: 17px * $ratio;
+            height: rem(17px * $ratio);
+            border: 1px solid #aaa;
+            background-color: #f5f7f9;
+            @include linear-gradient(top left, #f5f7f9 0%, #d7dee3 49%, #e5ebee 50%, #f6f8f9 100%);
+        }
+        &:not(:checked) + label:after, &:checked + label:after {
+            content: '\e66d';
+            font-family: "LincSym";
+            position: absolute;
+            top: 2px * $ratio;
+            top: rem(2px * $ratio);
+            left: 1px;
+            font-size: 16px * $ratio;
+            font-size: rem(16px * $ratio);
+            line-height: 19px * $ratio;
+            line-height: rem(19px * $ratio);
+            color: $index;
+            transition: all .2s;
+        }
+        &:not(:checked) + label:after {
+            opacity: 0;
+            transform: scale(0);
+        }
+        &:checked + label:after {
+            opacity: 1;
+            transform: scale(1);
+        }
+        &.indeterminate + label:after {
+            opacity: 1;
+            transform: scale(1);
+            content: '\e66e';
+            font-family: "LincSym";
+            position: absolute;
+            top: 2px * $ratio;
+            top: rem(2px * $ratio);
+            left: 0px;
+            font-size: 19px * $ratio;
+            font-size: rem(19px * $ratio);
+            line-height: 19px * $ratio;
+            line-height: rem(19px * $ratio);
+            color: rgba($index, 0.5);
+            transition: all .2s;
+        }
+        &:disabled {
+            &:not(:checked) + label:before {
+                box-shadow: none;
+                border-color: #bbb;
+                background-color: #ddd;
+            }
+            &:checked + label {
+                &:before {
+                    box-shadow: none;
+                    border-color: #bbb;
+                    background-color: #ddd;
+                }
+                &:after {
+                    color: #999;
+                }
+            }
+            + label {
+                color: #aaa;
+            }
+        }
+        &:checked:focus + label:before, &:not(:checked):focus + label:before {
+            border: 1px dotted blue;
+        }
+    }
+    label:hover:before {
+        border: 1px solid #4778d9 !important;
+    }
+}
+
+@mixin filters($font: 14px, $width: 250px) {
+    display: none;
+    float: left;
+    height: 100%;
+    font-size: $font;
+    font-size: rem($font);
+    ul {
+        display: none;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        width: $width !important;
+        width: rem($width) !important;
+        overflow: hidden;
+        background: #FFF;
+        box-shadow: 0px 0px 1px 0px $gray-4;
+        li {
+            @include rem("padding", 4px, $font, 4px, 4px);
+            margin: 2px;
+            margin: rem(2px);
+            position: relative;
+            &.parent {
+                &:after {
+                    content: '\e611';
+                    font-family: "LincSym";
+                    position: absolute;
+                    top: 8px;
+                    top: rem(8px);
+                    right: 8px;
+                    right: rem(8px);
+                    font-size: $font;
+                    font-size: rem($font);
+                    color: $gray-4;
+                    transition: all .2s;
+                }
+                &:hover, &.active {
+                    background: lighten($index, 45%);
+                    cursor: pointer;
+                }
+            }
+            &:hover {
+                background: lighten($index, 45%);
+            }
+            span {
+                display: inline-block;
+                width: 142px;
+                width: rem(142px);
+                vertical-align: middle;
+            }
+        }
+        &.l1 {
+            display: block;
+        }
+        &.l2 {
+            left: $width;
+            left: rem($width);
+        }
+        &.l3 {
+            left: $width * 2;
+            left: rem($width * 2);
+        }
+        &.l4 {
+            left: rem($width * 3);
+        }
+        @include tristate($font / 14px);
+    }
+    &.location{
+        >a {
+            color: lighten($gray-4, 10%);
+            position: absolute;
+            bottom: 3px;
+            left: 5px;
+            left: rem(5px);
+            z-index: 2;
+        }
+    }
+}
